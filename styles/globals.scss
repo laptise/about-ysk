@@ -1,0 +1,167 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  transition: all 300ms;
+  background: white;
+  font-size: 100%;
+
+  &[data-page="home"] {
+    #navHome {
+      span {
+        opacity: 1;
+        display: flex;
+        max-width: 100px;
+      }
+    }
+  }
+  &[data-page="code"] {
+    background: rgb(54, 59, 86);
+    * {
+      color: white;
+    }
+    #navDev {
+      span {
+        opacity: 1;
+        display: flex;
+        max-width: 100px;
+      }
+    }
+  }
+  &[data-page="music"] {
+    background: rgb(143, 140, 204);
+    #navMusic {
+      span {
+        opacity: 1;
+        display: flex;
+        max-width: 100px;
+      }
+    }
+  }
+  &[data-page="art"] {
+    background: yellow;
+    #navArt {
+      span {
+        opacity: 1;
+        display: flex;
+        max-width: 100px;
+      }
+    }
+  }
+  > div {
+    background: inherit;
+    > div {
+      background: inherit;
+    }
+  }
+}
+* {
+  color: black;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes flick {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes ltr {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+#intro {
+  background-color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  h1 {
+    animation: fadein 1500ms;
+    font-size: 4rem;
+  }
+  button {
+    all: unset;
+    font-size: 18px;
+    border: 1px solid black;
+    padding: 10px;
+    opacity: 0;
+    animation: fadein 1000ms 1000ms;
+    transition: all 100ms;
+    color: rgba(0, 0, 0, 0.7);
+    &.animEnd {
+      opacity: 1;
+      animation: flick 1000ms infinite;
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 3px rgba(0, 0, 0, 0.2);
+      }
+    }
+    &:active {
+      transform: translateY(0) !important;
+      box-shadow: 0 0 0 rgba(0, 0, 0, 0.2) !important;
+    }
+    cursor: pointer;
+  }
+  &[data-intro-out="true"] {
+    button,
+    h1 {
+      opacity: 0;
+      animation: fadeout 1s !important;
+    }
+  }
+}
+
+main {
+  animation: fadein 1000ms;
+  min-height: 100vh;
+  padding: 4rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &#home {
+    gap: 40px;
+  }
+}
