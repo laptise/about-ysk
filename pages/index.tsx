@@ -175,7 +175,9 @@ const Specific = () => {
         {Boolean(pickedBio?.desc) && (
           <div>
             <Divider sx={{ m: 1, borderWidth: 2 }} />
-            <span style={{ textIndent: "30%", display: "inline-flex" }}>{pickedBio?.desc || ""}</span>
+            <span style={{ textIndent: 16, display: "inline-block", width: "100%", fontSize: "0.9rem", whiteSpace: "pre-line" }}>
+              {pickedBio?.desc || ""}
+            </span>
           </div>
         )}
       </Stack>
