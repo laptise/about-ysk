@@ -1,12 +1,12 @@
 import { ReactNode } from "react";
 
-type bioType = "bio" | "dev" | "music" | "art";
+export type BioType = "bio" | "dev" | "music" | "art";
 export class BioLog {
-  constructor(public time: string, public content: string, public type: bioType[], public desc?: ReactNode) {}
+  constructor(public time: string, public content: string, public type: BioType[], public desc?: string) {}
 }
 
 export const bioList = [
-  new BioLog("1991.10.25", "👶 韓国釜山生まれ", ["bio"], <div>hi</div>),
+  new BioLog("1991.10.25", "👶 韓国釜山生まれ", ["bio"], "hello!"),
   new BioLog("2006.1", "🇯🇵 日本に移住", ["bio"]),
   new BioLog("2006.7", "🎸 バンドを始める", ["music"]),
   new BioLog("2012.2", "🇰🇷 韓国に帰国", ["bio"]),

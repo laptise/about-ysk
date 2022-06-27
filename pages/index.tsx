@@ -1,13 +1,13 @@
 import type { NextPage } from "next";
-import { createContext, FC, useEffect, useRef, useState } from "react";
+import { createContext, FC, useContext, useEffect, useRef, useState } from "react";
 import { Layout } from "../components/header";
 import styles from "../styles/Home.module.scss";
 import { Timeline, TimelineConnector, TimelineContent, TimelineDot, TimelineItem, TimelineOppositeContent, TimelineSeparator } from "@mui/lab";
 import EmailIcon from "@mui/icons-material/Email";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import { Checkbox, FormControlLabel, FormGroup, Stack, Typography } from "@mui/material";
+import { Checkbox, Divider, FormControlLabel, FormGroup, Stack, Typography } from "@mui/material";
 import Image from "next/image";
-import { bioList, BioLog } from "../data/jobs";
+import { bioList, BioLog, BioType } from "../data/jobs";
 
 type SingleTimeLineProps = {
   data: BioLog;
@@ -18,13 +18,15 @@ type SingleTimeLineProps = {
 const PickedBioCtx = createContext<{ pickedBioState: State<BioLog | null> }>(null as any);
 
 const SingleTimeLine: FC<SingleTimeLineProps> = ({ data, views, onClick }) => {
+  const [pickedBio, setPickedBio] = useContext(PickedBioCtx).pickedBioState;
+
   const view =
     (data.type.includes("dev") && views.viewDev) ||
     (data.type.includes("art") && views.viewArt) ||
     (data.type.includes("bio") && views.viewBio) ||
     (data.type.includes("music") && views.viewMusic);
   return (
-    <TimelineItem onClick={onClick} data-tl-opened={view} className={styles.tl} sx={{ paddingLeft: 0 }}>
+    <TimelineItem onClick={() => setPickedBio(data)} data-tl-opened={view} className={styles.tl} sx={{ paddingLeft: 0 }}>
       <TimelineOppositeContent sx={{ maxWidth: 90, paddingLeft: 0 }} color="text.secondary">
         {data.time}
       </TimelineOppositeContent>
@@ -43,52 +45,50 @@ function BioGraphy() {
   const [viewDev, setViewDev] = useState(false);
   const views = { viewDev, viewMusic, viewArt: viewDesign, viewBio };
   return (
-    <PickedBioCtx.Provider value={null as any}>
-      <Stack className={styles.bioGraphy}>
-        <Typography variant="h3">Life</Typography>
-        <FormGroup sx={{ flexDirection: "row" }}>
-          <FormControlLabel control={<Checkbox checked={viewBio} onChange={(e) => setViewBio(e.currentTarget.checked)} />} label="bio" />
-          <FormControlLabel control={<Checkbox checked={viewMusic} onChange={(e) => setViewMusic(e.currentTarget.checked)} />} label="music" />
-          <FormControlLabel control={<Checkbox checked={viewDesign} onChange={(e) => setViewDesing(e.currentTarget.checked)} />} label="graphic" />
-          <FormControlLabel control={<Checkbox checked={viewDev} onChange={(e) => setViewDev(e.currentTarget.checked)} />} label="dev" />
-        </FormGroup>
-        <Stack direction="row">
-          <Timeline sx={{ flex: 1, paddingLeft: 0 }}>
-            <SingleTimeLine onClick={() => console.log(188)} views={views} data={bioList[0]} />
-            <SingleTimeLine views={views} data={bioList[1]} />
-            <SingleTimeLine views={views} data={bioList[2]} />
-            <SingleTimeLine views={views} data={bioList[3]} />
-            <SingleTimeLine views={views} data={bioList[4]} />
-            <SingleTimeLine views={views} data={bioList[5]} />
-            <SingleTimeLine views={views} data={bioList[6]} />
-            <SingleTimeLine views={views} data={bioList[7]} />
-            <SingleTimeLine views={views} data={bioList[8]} />
-            <SingleTimeLine views={views} data={bioList[9]} />
-            <SingleTimeLine views={views} data={bioList[10]} />
-            <SingleTimeLine views={views} data={bioList[11]} />
-            <SingleTimeLine views={views} data={bioList[12]} />
-            <SingleTimeLine views={views} data={bioList[13]} />
-            <SingleTimeLine views={views} data={bioList[14]} />
-            <SingleTimeLine views={views} data={bioList[15]} />
-            <SingleTimeLine views={views} data={bioList[16]} />
-            <SingleTimeLine views={views} data={bioList[17]} />
-            <SingleTimeLine views={views} data={bioList[18]} />
-            <SingleTimeLine views={views} data={bioList[19]} />
-            <SingleTimeLine views={views} data={bioList[20]} />
-            <SingleTimeLine views={views} data={bioList[21]} />
-            <SingleTimeLine views={views} data={bioList[22]} />
-            <SingleTimeLine views={views} data={bioList[23]} />
-            <SingleTimeLine views={views} data={bioList[24]} />
-            <SingleTimeLine views={views} data={bioList[25]} />
-            <SingleTimeLine views={views} data={bioList[26]} />
-            <SingleTimeLine views={views} data={bioList[27]} />
-          </Timeline>
-          <Stack sx={{ flex: 1 }}>
-            <Specific />
-          </Stack>
+    <Stack className={styles.bioGraphy}>
+      <Typography variant="h3">Life</Typography>
+      <FormGroup sx={{ flexDirection: "row" }}>
+        <FormControlLabel control={<Checkbox checked={viewBio} onChange={(e) => setViewBio(e.currentTarget.checked)} />} label="bio" />
+        <FormControlLabel control={<Checkbox checked={viewMusic} onChange={(e) => setViewMusic(e.currentTarget.checked)} />} label="music" />
+        <FormControlLabel control={<Checkbox checked={viewDesign} onChange={(e) => setViewDesing(e.currentTarget.checked)} />} label="graphic" />
+        <FormControlLabel control={<Checkbox checked={viewDev} onChange={(e) => setViewDev(e.currentTarget.checked)} />} label="dev" />
+      </FormGroup>
+      <Stack direction="row">
+        <Timeline sx={{ flex: 1, padding: 0 }}>
+          <SingleTimeLine views={views} data={bioList[0]} />
+          <SingleTimeLine views={views} data={bioList[1]} />
+          <SingleTimeLine views={views} data={bioList[2]} />
+          <SingleTimeLine views={views} data={bioList[3]} />
+          <SingleTimeLine views={views} data={bioList[4]} />
+          <SingleTimeLine views={views} data={bioList[5]} />
+          <SingleTimeLine views={views} data={bioList[6]} />
+          <SingleTimeLine views={views} data={bioList[7]} />
+          <SingleTimeLine views={views} data={bioList[8]} />
+          <SingleTimeLine views={views} data={bioList[9]} />
+          <SingleTimeLine views={views} data={bioList[10]} />
+          <SingleTimeLine views={views} data={bioList[11]} />
+          <SingleTimeLine views={views} data={bioList[12]} />
+          <SingleTimeLine views={views} data={bioList[13]} />
+          <SingleTimeLine views={views} data={bioList[14]} />
+          <SingleTimeLine views={views} data={bioList[15]} />
+          <SingleTimeLine views={views} data={bioList[16]} />
+          <SingleTimeLine views={views} data={bioList[17]} />
+          <SingleTimeLine views={views} data={bioList[18]} />
+          <SingleTimeLine views={views} data={bioList[19]} />
+          <SingleTimeLine views={views} data={bioList[20]} />
+          <SingleTimeLine views={views} data={bioList[21]} />
+          <SingleTimeLine views={views} data={bioList[22]} />
+          <SingleTimeLine views={views} data={bioList[23]} />
+          <SingleTimeLine views={views} data={bioList[24]} />
+          <SingleTimeLine views={views} data={bioList[25]} />
+          <SingleTimeLine views={views} data={bioList[26]} />
+          <SingleTimeLine views={views} data={bioList[27]} />
+        </Timeline>
+        <Stack sx={{ flex: 1 }}>
+          <Specific />
         </Stack>
       </Stack>
-    </PickedBioCtx.Provider>
+    </Stack>
   );
 }
 
@@ -124,6 +124,7 @@ const AboutMe = () => {
 
 const Specific = () => {
   const div = useRef<HTMLDivElement>(null);
+  const [pickedBio] = useContext(PickedBioCtx).pickedBioState;
   useEffect(() => {
     const clientRect = div.current!.getBoundingClientRect();
 
@@ -134,7 +135,7 @@ const Specific = () => {
     console.log(py);
     document.onscroll = (e) => {
       const { scrollY } = window;
-      if (scrollY + 44.5 > py) {
+      if (scrollY + 64.5 > py) {
         div.current!.classList.add(styles.fixed);
       } else {
         div.current!.classList.remove(styles.fixed);
@@ -144,21 +145,56 @@ const Specific = () => {
       document.onscroll = () => {};
     };
   }, []);
+  const typeToString = (type: BioType) => {
+    switch (type) {
+      case "bio":
+        return "Bio";
+      case "art":
+        return "Graphic";
+      case "music":
+        return "Music";
+      case "dev":
+        return "Dev";
+    }
+  };
   return (
     <div ref={div} className={styles.spec}>
-      詳細
+      <div style={{ flex: 1 }}></div>
+      <Stack sx={{ flex: 1 }}>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <span className={styles.time}>{pickedBio?.time}</span>
+          <span className={styles.tags}>
+            {pickedBio?.type.map((t) => (
+              <span className="" key={t}>
+                {typeToString(t)}
+              </span>
+            ))}
+          </span>
+        </div>
+        <span className={styles.title}>{pickedBio?.content}</span>
+        {Boolean(pickedBio?.desc) && (
+          <div>
+            <Divider sx={{ m: 1, borderWidth: 2 }} />
+            <span style={{ textIndent: "30%", display: "inline-flex" }}>{pickedBio?.desc || ""}</span>
+          </div>
+        )}
+      </Stack>
     </div>
   );
 };
 
 const Home: NextPage = () => {
+  const pickedBioState = useState<BioLog | null>(null);
+  const initCtx = { pickedBioState };
   useEffect(() => {
     document.body.dataset.page = "home";
   }, []);
   return (
     <Layout pageId={"home"}>
-      <AboutMe />
-      <BioGraphy />
+      <PickedBioCtx.Provider value={initCtx}>
+        <AboutMe />
+        <BioGraphy />
+      </PickedBioCtx.Provider>
     </Layout>
   );
 };

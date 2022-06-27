@@ -207,9 +207,30 @@
 
 .spec {
   transition: all 100ms;
-  top: 45px;
+  top: 65px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   &.fixed {
-    left: calc(50% + 8px);
+    width: 60rem;
+    left: calc(50% - 30rem);
     position: fixed;
+    flex-direction: row;
+  }
+  .title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: initial;
+  }
+  .time {
+    font-size: 0.9rem;
+    color: #999;
+  }
+  .tags {
+    display: flex;
+    gap: 10px;
+    .single {
+      font-weight: bold;
+    }
   }
 }
