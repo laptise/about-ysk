@@ -25,7 +25,17 @@
     }
   }
   .body {
+    all: unset;
+    height: 400px;
+    font-size: 0.9rem;
     padding: 10px;
-    background-color: rgba(37, 37, 37, 0.6);
+    background-color: #323440;
+  }
+  input {
+    all: unset;
+    background-color: rgb(37, 37, 37);
+    color: white;
+    padding: 10px;
+    font-size: 0.8rem;
   }
 }
