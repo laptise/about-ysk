@@ -2,9 +2,17 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import { Layout } from "../components/header";
 import styles from "../styles/Dev.module.scss";
 
+const helpText = `
+  clear : すべて削除    skills : スキルセット表示`;
+const skills = `
+TypeScript JavaScript SQL React.js Next.js Firebase Nest.js GraphQl C#`;
+
+const npm = `npmは使えません!`;
 const commands: { [key: string]: string } = {
-  help: `
-  clear : すべて削除`,
+  help: helpText,
+  "?": helpText,
+  skills,
+  npm,
 };
 
 const Dev = () => {
