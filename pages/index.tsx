@@ -11,7 +11,7 @@ import { bioList, BioLog, BioType } from "../data/jobs";
 
 type SingleTimeLineProps = {
   data: BioLog;
-  views: { viewDev: boolean; viewBio: boolean; viewMusic: boolean; viewArt: boolean };
+  views: { viewDev: boolean; viewBio: boolean; viewMusic: boolean; viewArt: boolean; viewLife: boolean };
   onClick?: () => void;
 };
 
@@ -24,7 +24,8 @@ const SingleTimeLine: FC<SingleTimeLineProps> = ({ data, views, onClick }) => {
     (data.type.includes("dev") && views.viewDev) ||
     (data.type.includes("art") && views.viewArt) ||
     (data.type.includes("bio") && views.viewBio) ||
-    (data.type.includes("music") && views.viewMusic);
+    (data.type.includes("music") && views.viewMusic) ||
+    (data.type.includes("life") && views.viewLife);
   return (
     <TimelineItem onClick={() => setPickedBio(data)} data-tl-opened={view} className={styles.tl} sx={{ paddingLeft: 0 }}>
       <TimelineOppositeContent sx={{ maxWidth: 90, paddingLeft: 0 }} color="text.secondary">
@@ -40,10 +41,11 @@ const SingleTimeLine: FC<SingleTimeLineProps> = ({ data, views, onClick }) => {
 };
 function BioGraphy() {
   const [viewBio, setViewBio] = useState(true);
+  const [viewLife, setViewLife] = useState(true);
   const [viewMusic, setViewMusic] = useState(false);
   const [viewDesign, setViewDesing] = useState(false);
   const [viewDev, setViewDev] = useState(false);
-  const views = { viewDev, viewMusic, viewArt: viewDesign, viewBio };
+  const views = { viewDev, viewMusic, viewArt: viewDesign, viewBio, viewLife };
   return (
     <Stack className={styles.bioGraphy}>
       <Typography variant="h3">Life</Typography>
@@ -52,37 +54,13 @@ function BioGraphy() {
         <FormControlLabel control={<Checkbox checked={viewMusic} onChange={(e) => setViewMusic(e.currentTarget.checked)} />} label="music" />
         <FormControlLabel control={<Checkbox checked={viewDesign} onChange={(e) => setViewDesing(e.currentTarget.checked)} />} label="graphic" />
         <FormControlLabel control={<Checkbox checked={viewDev} onChange={(e) => setViewDev(e.currentTarget.checked)} />} label="dev" />
+        <FormControlLabel control={<Checkbox checked={viewLife} onChange={(e) => setViewLife(e.currentTarget.checked)} />} label="life" />
       </FormGroup>
       <Stack direction="row">
         <Timeline sx={{ flex: 1, padding: 0 }}>
-          <SingleTimeLine views={views} data={bioList[0]} />
-          <SingleTimeLine views={views} data={bioList[1]} />
-          <SingleTimeLine views={views} data={bioList[2]} />
-          <SingleTimeLine views={views} data={bioList[3]} />
-          <SingleTimeLine views={views} data={bioList[4]} />
-          <SingleTimeLine views={views} data={bioList[5]} />
-          <SingleTimeLine views={views} data={bioList[6]} />
-          <SingleTimeLine views={views} data={bioList[7]} />
-          <SingleTimeLine views={views} data={bioList[8]} />
-          <SingleTimeLine views={views} data={bioList[9]} />
-          <SingleTimeLine views={views} data={bioList[10]} />
-          <SingleTimeLine views={views} data={bioList[11]} />
-          <SingleTimeLine views={views} data={bioList[12]} />
-          <SingleTimeLine views={views} data={bioList[13]} />
-          <SingleTimeLine views={views} data={bioList[14]} />
-          <SingleTimeLine views={views} data={bioList[15]} />
-          <SingleTimeLine views={views} data={bioList[16]} />
-          <SingleTimeLine views={views} data={bioList[17]} />
-          <SingleTimeLine views={views} data={bioList[18]} />
-          <SingleTimeLine views={views} data={bioList[19]} />
-          <SingleTimeLine views={views} data={bioList[20]} />
-          <SingleTimeLine views={views} data={bioList[21]} />
-          <SingleTimeLine views={views} data={bioList[22]} />
-          <SingleTimeLine views={views} data={bioList[23]} />
-          <SingleTimeLine views={views} data={bioList[24]} />
-          <SingleTimeLine views={views} data={bioList[25]} />
-          <SingleTimeLine views={views} data={bioList[26]} />
-          <SingleTimeLine views={views} data={bioList[27]} />
+          {bioList.map((bio) => (
+            <SingleTimeLine key={bio.content} views={views} data={bio} />
+          ))}
         </Timeline>
         <Stack sx={{ flex: 1 }}>
           <Specific />
@@ -155,6 +133,8 @@ const Specific = () => {
         return "Music";
       case "dev":
         return "Dev";
+      case "life":
+        return "Life";
     }
   };
   return (
@@ -175,7 +155,7 @@ const Specific = () => {
         {Boolean(pickedBio?.desc) && (
           <div>
             <Divider sx={{ m: 1, borderWidth: 2 }} />
-            <span style={{ textIndent: 16, display: "inline-block", width: "100%", fontSize: "0.9rem", whiteSpace: "pre-line" }}>
+            <span style={{ paddingLeft: 8, display: "inline-block", width: "100%", fontSize: "0.9rem", whiteSpace: "pre-line" }}>
               {pickedBio?.desc || ""}
             </span>
           </div>
