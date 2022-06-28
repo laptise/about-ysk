@@ -1,0 +1,31 @@
+#hello {
+  width: 40rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.7);
+  .header {
+    padding: 10px;
+    font-size: 0.9rem;
+    background-color: rgb(37, 37, 37);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .buttons {
+      display: flex;
+      align-items: center;
+      gap: 7.5px;
+      button {
+        all: unset;
+        width: 12px;
+        height: 12px;
+        border-radius: 100%;
+      }
+    }
+  }
+  .body {
+    padding: 10px;
+    background-color: rgba(37, 37, 37, 0.6);
+  }
+}
