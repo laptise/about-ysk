@@ -5,14 +5,23 @@ import styles from "../styles/Dev.module.scss";
 const helpText = `
   clear : すべて削除    skills : スキルセット表示`;
 const skills = `
-TypeScript JavaScript SQL React.js Next.js Firebase Nest.js GraphQl C#`;
+TypeScript JavaScript SQL React.js Next.js Firebase Nest.js GraphQl C# Docker`;
 
+const ts = `一番好きな言語で一番自由度が高いです。`;
+const js = `Web APIとしてなくてはならない言語。TypeScriptをメインとしているので、JavaScriptも自由に使います。`;
+const sql = `今までは必要に応じて使っていましたが、最近になって処理順を考えることでパフォーマンスがだいぶ変わることを気づきはじめ、面白いと感じています。
+パフォーマンスと可読性を考慮して書くことに注力しています。`;
+const react = `Reactの機能も好きですが、何より好きなのはReactのコンセプトそのものです。宣言的にコンポーネントを作成し、機能がまとまっているパーツとして捉えている点が好きです。`;
 const npm = `npmは使えません!`;
 const commands: { [key: string]: string } = {
   help: helpText,
   "?": helpText,
   skills,
   npm,
+  ts,
+  js,
+  sql,
+  react,
 };
 
 const Dev = () => {
@@ -31,8 +40,9 @@ const Dev = () => {
         newValues = [];
         break;
       default:
-        if (commands[value]) {
-          newValues.push(`system > ${commands[value]}`);
+        const key = value.toLowerCase().replace(".", "");
+        if (commands[key]) {
+          newValues.push(`system > ${commands[key]}`);
         } else {
           newValues.push(`system > 存在しないコマンドです。'help'を入力してコマンドを確認してください`);
         }
@@ -56,7 +66,13 @@ const Dev = () => {
               <button style={{ backgroundColor: "#2a8a17" }} />
             </div>
           </div>
-          <textarea ref={ta} value={values.join("\n")} style={{ whiteSpace: "pre", lineHeight: 1.5 }} className={styles.body} readOnly></textarea>
+          <textarea
+            ref={ta}
+            value={values.join("\n")}
+            style={{ whiteSpace: "pre", lineHeight: 1.5, whiteSpace: "pre-wrap" }}
+            className={styles.body}
+            readOnly
+          ></textarea>
           <input value={value} onChange={(e) => setValue(e.target.value)} placeholder="ここにコマンドを入力..." />
         </div>
       </form>
